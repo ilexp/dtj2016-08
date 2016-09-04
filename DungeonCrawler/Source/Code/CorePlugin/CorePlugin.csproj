@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundLoop.cs" />
+    <Compile Include="FireTrap.cs" />
     <Compile Include="YouWonScreen.cs" />
     <Compile Include="Stairs.cs" />
     <Compile Include="Item.cs" />

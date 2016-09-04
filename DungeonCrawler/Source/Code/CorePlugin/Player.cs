@@ -98,6 +98,13 @@ namespace DungeonCrawler
 				item.GameObj.DisposeLater();
 			}
 
+			// Activate fire traps
+			FireTrap trap = LevelMap.Current.GetObjectAt<FireTrap>(this.actor.GridPosition);
+			if (trap != null)
+			{
+				trap.Activate();
+			}
+
 			// Enter the next level
 			Stairs stairs = LevelMap.Current.GetObjectAt<Stairs>(this.actor.GridPosition);
 			if (stairs != null)

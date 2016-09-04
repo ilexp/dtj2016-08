@@ -20,6 +20,7 @@ namespace DungeonCrawler
 		public Point2 GridPosition
 		{
 			get { return this.gridPos; }
+			set { this.gridPos = value; }
 		}
 		public bool IsOnFire
 		{
