@@ -64,10 +64,13 @@ namespace DungeonCrawler
 		}
 
 
-		private void UpdateVisibility()
+		public void UpdateVisibility()
 		{
 			Transform visibilityTransform = (this.visibilityRenderer as Component).GameObj.Transform;
 			Tilemap visibilityMap = this.visibilityRenderer.ActiveTilemap;
+
+			Tilemap terrainMap = LevelMap.Current.BaseMap;
+			Tileset terrainTileset = terrainMap.Tileset.Res;
 
 			Vector2 tileSize = new Vector2(
 				this.visibilityRenderer.LocalTilemapRect.W / (float)visibilityMap.Size.X,
@@ -107,10 +110,10 @@ namespace DungeonCrawler
 				bool hit = RigidBody.RayCast(
 					this.playerPos, 
 					this.playerPos + offset, 
-					d => d.Body.CollisionCategory.HasFlag(CollisionCategory.Cat2) ? d.Fraction : -1.0f, 
+					d => (d.Body.Active && d.Body.CollisionCategory.HasFlag(CollisionCategory.Cat2)) ? d.Fraction : -1.0f, 
 					out hitData);
 				float hitFraction = hit ? hitData.Fraction : 1.0f;
-				Vector2 hitPos = this.playerPos + offset * (hitFraction - 0.05f);
+				Vector2 hitPos = this.playerPos + offset * hitFraction - offset.Normalized * 2;
 
 				Point2 endTile = LevelMap.Current.GetTilePosition(hitPos);
 				DrawTileLine(tileData, width, startTile.X, startTile.Y, endTile.X, endTile.Y, this.seenTile);
@@ -123,7 +126,8 @@ namespace DungeonCrawler
 				//	0.0f, 
 				//	hitPos.X, 
 				//	hitPos.Y)
-				//	.WithOffset(-100);
+				//	.WithOffset(-100)
+				//	.KeepAlive(1000);
 				//VisualLog.Default.DrawConnection(
 				//	startTilePos.X, 
 				//	startTilePos.Y, 
@@ -131,11 +135,14 @@ namespace DungeonCrawler
 				//	endTilePos.X, 
 				//	endTilePos.Y)
 				//	.WithColor(ColorRgba.Red)
-				//	.WithOffset(-101);
+				//	.WithOffset(-101)
+				//	.KeepAlive(1000);
 			}
 			
 			// Expand visibility by one in all directions
-			ExpandVisible(this.visibilityBuffer, tiles, this.seenTile);
+			Grid<Tile> terrainTiles = terrainMap.BeginUpdateTiles();
+			ExpandVisible(this.visibilityBuffer, tiles, this.seenTile, terrainTiles, terrainTileset.TileData.Data);
+			terrainMap.EndUpdateTiles(0, 0, 0, 0);
 
 			// Update everything on the fire map
 			visibilityMap.EndUpdateTiles();
@@ -190,7 +197,7 @@ namespace DungeonCrawler
 				}
 			}
 		}
-		private static void ExpandVisible(Grid<Tile> buffer, Grid<Tile> visibility, int visibleIndex)
+		private static void ExpandVisible(Grid<Tile> buffer, Grid<Tile> visibility, int visibleIndex, Grid<Tile> terrainTiles, TileInfo[] tileData)
 		{
 			int width = visibility.Width;
 			int height = visibility.Height;
@@ -200,12 +207,19 @@ namespace DungeonCrawler
 
 			Tile[] newVisibilityData = visibility.RawData;
 			Tile[] visibilityData = buffer.RawData;
+			Tile[] terrainData = terrainTiles.RawData;
 
 			for (int x = 0; x < width; x++)
 			{
 				for (int y = 0; y < height; y++)
 				{
 					int i = x + width * y;
+
+					// Don't expand visibility to non-blocking tiles
+					TileCollisionShapes collision = tileData[terrainData[i].BaseIndex].Collision;
+					bool blockingView = collision[TileCollisionLayer.Layer2] != TileCollisionShape.Free;
+					if (!blockingView) continue;
+
 					bool visible = visibilityData[i].BaseIndex == visibleIndex;
 					visible |= x > 0         && y > 0          && visibilityData[i - 1 - width].BaseIndex == visibleIndex;
 					visible |=                  y > 0          && visibilityData[i     - width].BaseIndex == visibleIndex;

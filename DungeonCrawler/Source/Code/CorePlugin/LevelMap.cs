@@ -4,6 +4,7 @@ using System.Linq;
 
 using Duality;
 using Duality.Components;
+using Duality.Components.Physics;
 using Duality.Resources;
 using Duality.Drawing;
 using Duality.Editor;
@@ -47,6 +48,10 @@ namespace DungeonCrawler
 				}
 			}
 		}
+		public Tilemap BaseMap
+		{
+			get { return this.baseMap; }
+		}
 		public FireGrowth FireGrowth
 		{
 			get { return this.fireGrowth; }
@@ -54,6 +59,17 @@ namespace DungeonCrawler
 		}
 
 		
+		public T GetObjectAt<T>(Point2 tilePos) where T : class
+		{
+			Vector2 objPos = GetObjectPosition(tilePos);
+			List<ShapeInfo> shapesAtPos = RigidBody.PickShapesGlobal(objPos);
+			foreach (ShapeInfo shape in shapesAtPos)
+			{
+				T obj = shape.Parent.GameObj.GetComponent<T>();
+				if (obj != null) return obj;
+			}
+			return default(T);
+		}
 		public Vector2 GetObjectPosition(Point2 tilePos)
 		{
 			if (this.baseMap == null) return Vector2.Zero;

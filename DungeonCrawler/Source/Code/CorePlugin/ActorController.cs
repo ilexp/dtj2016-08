@@ -46,7 +46,7 @@ namespace DungeonCrawler
 			Vector2 currentPos = LevelMap.Current.GetObjectPosition(this.gridPos);
 			Vector2 targetPos = LevelMap.Current.GetObjectPosition(targetGridPos);
 			RayCastData firstHit;
-			if (RigidBody.RayCast(currentPos, targetPos, d => d.Fraction, out firstHit))
+			if (RigidBody.RayCast(currentPos, targetPos, d => !d.Shape.IsSensor ? d.Fraction : -1, out firstHit))
 				return false;
 			else
 				return true;

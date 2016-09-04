@@ -14,6 +14,7 @@ namespace DungeonCrawler
 	{
 		private ActorController actor = null;
 		private ContentRef<Scene> gameOverScene = null;
+		private List<DoorType> keys = new List<DoorType>();
 
 		[DontSerialize] private float moveTimer = 0.0f;
 
@@ -53,14 +54,46 @@ namespace DungeonCrawler
 			this.moveTimer -= Time.TimeMult * Time.SPFMult;
 
 			if (moveDir != Direction.None && 
-				this.moveTimer <= 0.0f && 
-				this.actor.CanMoveTo(moveDir))
+				this.moveTimer <= 0.0f)
 			{
-				this.moveTimer += 0.25f;
-				this.actor.MoveTo(moveDir);
-				WorldSimulation.Current.Step();
+				this.moveTimer = 0.25f;
+				Point2 targetGridPos = moveDir.ToPoint(this.actor.GridPosition);
+
+				// Open doors
+				Door door = LevelMap.Current.GetObjectAt<Door>(targetGridPos);
+				if (door != null)
+				{
+					if (this.keys.Remove(door.Type))
+					{
+						door.GameObj.DisposeLater();
+					}
+				}
+				// Move
+				else if (this.actor.CanMoveTo(moveDir))
+				{
+					this.actor.MoveTo(moveDir);
+					WorldSimulation.Current.Step();
+				}
 			}
 
+			// Pick up items
+			Item item = LevelMap.Current.GetObjectAt<Item>(this.actor.GridPosition);
+			if (item is KeyItem)
+			{
+				keys.Add((item as KeyItem).Type);
+				item.GameObj.DisposeLater();
+			}
+
+			// Enter the next level
+			Stairs stairs = LevelMap.Current.GetObjectAt<Stairs>(this.actor.GridPosition);
+			if (stairs != null)
+			{
+				Scene.Current.DisposeLater();
+				Scene.SwitchTo(stairs.NextLevel);
+				return;
+			}
+
+			// Update visibility when moving
 			VisibilityManager.Current.PlayerGridPosition = LevelMap.Current.GetTilePosition(this.actor.GameObj.Transform.Pos.Xy);
 		}
 	}

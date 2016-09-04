@@ -60,6 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="YouWonScreen.cs" />
+    <Compile Include="Stairs.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="KeyItem.cs" />
+    <Compile Include="DoorType.cs" />
+    <Compile Include="Door.cs" />
     <Compile Include="VisibilityManager.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="ScreenRenderTargetResizer.cs" />
