@@ -473,7 +473,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2526386089">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1432420878" length="16" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">4636</_version>
+                    <_version dataType="Int">4746</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="623032188">
@@ -581,7 +581,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="3503433579">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="252476534" length="22" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">640</_version>
+                    <_version dataType="Int">730</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="3902419006">
@@ -706,6 +706,12 @@
               <_size dataType="Int">0</_size>
               <_version dataType="Int">0</_version>
             </keys>
+            <pickupSound dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Sound]]">
+              <contentPath dataType="String">Data\Audio\PickupItem.Sound.res</contentPath>
+            </pickupSound>
+            <unlockSound dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Sound]]">
+              <contentPath dataType="String">Data\Audio\UnlockDoor.Sound.res</contentPath>
+            </unlockSound>
           </item>
         </_items>
         <_size dataType="Int">1</_size>
@@ -2736,6 +2742,45 @@
       </identifier>
       <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
       <name dataType="String">Objects</name>
+      <parent />
+      <prefabLink />
+    </item>
+    <item dataType="Struct" type="Duality.GameObject" id="727702181">
+      <active dataType="Bool">true</active>
+      <children />
+      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="235428567">
+        <_items dataType="Array" type="Duality.Component[]" id="2872289294" length="4">
+          <item dataType="Struct" type="DungeonCrawler.BackgroundLoop" id="923246601">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">727702181</gameobj>
+            <sound dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Sound]]">
+              <contentPath dataType="String">Data\Audio\BackgroundLoop.Sound.res</contentPath>
+            </sound>
+          </item>
+        </_items>
+        <_size dataType="Int">1</_size>
+        <_version dataType="Int">1</_version>
+      </compList>
+      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2831750592" surrogate="true">
+        <header />
+        <body>
+          <keys dataType="Array" type="System.Object[]" id="2190301021">
+            <item dataType="Type" id="2417382758" value="DungeonCrawler.BackgroundLoop" />
+          </keys>
+          <values dataType="Array" type="System.Object[]" id="1407689080">
+            <item dataType="ObjectRef">923246601</item>
+          </values>
+        </body>
+      </compMap>
+      <compTransform />
+      <identifier dataType="Struct" type="System.Guid" surrogate="true">
+        <header>
+          <data dataType="Array" type="System.Byte[]" id="2357112055">eZVBmx5hf0+NkdF6yTvlow==</data>
+        </header>
+        <body />
+      </identifier>
+      <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
+      <name dataType="String">BackgroundLoop</name>
       <parent />
       <prefabLink />
     </item>
