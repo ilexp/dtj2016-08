@@ -27,6 +27,7 @@ namespace DungeonCrawler
 			{
 				this.instance = DualityApp.Sound.PlaySound(this.sound);
 				this.instance.Looped = true;
+				this.instance.BeginFadeIn(3.0f);
 			}
 		}
 		void ICmpInitializable.OnShutdown(Component.ShutdownContext context)

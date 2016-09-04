@@ -473,7 +473,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="2526386089">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="1432420878" length="16" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">4746</_version>
+                    <_version dataType="Int">4768</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="623032188">
@@ -581,7 +581,7 @@
                   <shapes dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="3503433579">
                     <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="252476534" length="22" />
                     <_size dataType="Int">0</_size>
-                    <_version dataType="Int">730</_version>
+                    <_version dataType="Int">748</_version>
                   </shapes>
                 </item>
                 <item dataType="Struct" type="Duality.Plugins.Tilemaps.TilemapCollider" id="3902419006">
@@ -2781,6 +2781,86 @@
       </identifier>
       <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
       <name dataType="String">BackgroundLoop</name>
+      <parent />
+      <prefabLink />
+    </item>
+    <item dataType="Struct" type="Duality.GameObject" id="3317168331">
+      <active dataType="Bool">true</active>
+      <children />
+      <compList dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3245248441">
+        <_items dataType="Array" type="Duality.Component[]" id="2545080526" length="4">
+          <item dataType="Struct" type="Duality.Components.Transform" id="1382515967">
+            <active dataType="Bool">true</active>
+            <angle dataType="Float">0</angle>
+            <angleAbs dataType="Float">0</angleAbs>
+            <angleVel dataType="Float">0</angleVel>
+            <angleVelAbs dataType="Float">0</angleVelAbs>
+            <deriveAngle dataType="Bool">true</deriveAngle>
+            <gameobj dataType="ObjectRef">3317168331</gameobj>
+            <ignoreParent dataType="Bool">false</ignoreParent>
+            <parentTransform />
+            <pos dataType="Struct" type="Duality.Vector3">
+              <X dataType="Float">-372</X>
+              <Y dataType="Float">228</Y>
+              <Z dataType="Float">0</Z>
+            </pos>
+            <posAbs dataType="Struct" type="Duality.Vector3">
+              <X dataType="Float">-372</X>
+              <Y dataType="Float">228</Y>
+              <Z dataType="Float">0</Z>
+            </posAbs>
+            <scale dataType="Float">1</scale>
+            <scaleAbs dataType="Float">1</scaleAbs>
+            <vel dataType="Struct" type="Duality.Vector3" />
+            <velAbs dataType="Struct" type="Duality.Vector3" />
+          </item>
+          <item dataType="Struct" type="Duality.Components.SoundEmitter" id="1066092922">
+            <active dataType="Bool">true</active>
+            <gameobj dataType="ObjectRef">3317168331</gameobj>
+            <sources dataType="Struct" type="System.Collections.Generic.List`1[[Duality.Components.SoundEmitter+Source]]" id="2458997278">
+              <_items dataType="Array" type="Duality.Components.SoundEmitter+Source[]" id="2133102224" length="4">
+                <item dataType="Struct" type="Duality.Components.SoundEmitter+Source" id="3449818428">
+                  <looped dataType="Bool">false</looped>
+                  <lowpass dataType="Float">1</lowpass>
+                  <offset dataType="Struct" type="Duality.Vector3" />
+                  <paused dataType="Bool">false</paused>
+                  <pitch dataType="Float">1</pitch>
+                  <sound dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Sound]]">
+                    <contentPath dataType="String">Data\Audio\Thunder.Sound.res</contentPath>
+                  </sound>
+                  <volume dataType="Float">1</volume>
+                </item>
+              </_items>
+              <_size dataType="Int">1</_size>
+              <_version dataType="Int">1</_version>
+            </sources>
+          </item>
+        </_items>
+        <_size dataType="Int">2</_size>
+        <_version dataType="Int">2</_version>
+      </compList>
+      <compMap dataType="Struct" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="433885440" surrogate="true">
+        <header />
+        <body>
+          <keys dataType="Array" type="System.Object[]" id="1815451667">
+            <item dataType="ObjectRef">664648032</item>
+            <item dataType="Type" id="259181286" value="Duality.Components.SoundEmitter" />
+          </keys>
+          <values dataType="Array" type="System.Object[]" id="490118392">
+            <item dataType="ObjectRef">1382515967</item>
+            <item dataType="ObjectRef">1066092922</item>
+          </values>
+        </body>
+      </compMap>
+      <compTransform dataType="ObjectRef">1382515967</compTransform>
+      <identifier dataType="Struct" type="System.Guid" surrogate="true">
+        <header>
+          <data dataType="Array" type="System.Byte[]" id="2041240825">bbDjOlScOkiv6GOjIztCnA==</data>
+        </header>
+        <body />
+      </identifier>
+      <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
+      <name dataType="String">SoundEmitter</name>
       <parent />
       <prefabLink />
     </item>
